@@ -1,8 +1,8 @@
 const { Client } = require("pg");
 const prompt = require("prompt-sync")();
 
-//COnfig to connect to database
-
+//Config to connect to database
+//Please update them to your configuration
 const client = new Client({
   host: "localhost",
   user: "postgres",
@@ -18,7 +18,6 @@ client.connect();
 async function getAllStudents() {
   try {
     const res = await client.query("SELECT * FROM students");
-
     for (let row of res.rows) {
       console.log(
         `${row.student_id}\t${row.first_name}\t${row.last_name}\t\t${row.email}\t\t${row.enrollment_date}`
@@ -29,6 +28,7 @@ async function getAllStudents() {
   }
 }
 
+//Function to add a new student to the database
 async function addStudent(first_name, last_name, email, enrollment_date) {
   try {
     await client.query(
@@ -42,6 +42,7 @@ async function addStudent(first_name, last_name, email, enrollment_date) {
   }
 }
 
+//Update a student email based on studentId
 async function updateStudentEmail(studentId, newEmail) {
   try {
     await client.query(
@@ -55,6 +56,7 @@ async function updateStudentEmail(studentId, newEmail) {
   }
 }
 
+//Delete a student based on studentId
 async function deleteStudent(studentId) {
   try {
     await client.query("DELETE FROM students WHERE student_id = $1", [
@@ -67,12 +69,12 @@ async function deleteStudent(studentId) {
   }
 }
 
-// addStudent("Demo", "Student", "demo.student@example.com", "2023-09-02");
-
+//Calls the all other functions
 async function main() {
+  console.log("===Get All Students===");
   await getAllStudents();
 
-  console.log("===Adding a new student===");
+  console.log("\n\n===Adding a new student===");
 
   //Get student info
   let first_name = prompt("Please enter student first name: ");
@@ -82,20 +84,20 @@ async function main() {
 
   await addStudent(first_name, last_name, email, enrollment_date);
 
-  console.log("===Updating a student");
+  console.log("\n\n===Updating a student");
 
   let studentId = prompt("Please enter student ID: ");
   let newEmail = prompt("Please enter new email: ");
 
   await updateStudentEmail(studentId, newEmail);
 
-  console.log("Removing a student");
+  console.log("\n\n===Removing a student===");
 
   studentId = prompt("Please enter student ID: ");
 
   await deleteStudent(studentId);
 
-  //disconnect connection
+  //close the connection to save resources.
   client.end();
 }
 
