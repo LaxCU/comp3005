@@ -45,10 +45,10 @@ async function addStudent(first_name, last_name, email, enrollment_date) {
 //Update a student email based on studentId
 async function updateStudentEmail(studentId, newEmail) {
   try {
-    await client.query(
-      "UPDATE students SET email = $1 WHERE student_id = $2 RETURNING *",
-      [newEmail, studentId]
-    );
+    await client.query("UPDATE students SET email = $1 WHERE student_id = $2", [
+      newEmail,
+      studentId,
+    ]);
 
     console.log(`Student with id ${studentId} has their email updated!`);
   } catch (e) {
@@ -76,7 +76,7 @@ async function main() {
 
   console.log("\n\n===Adding a new student===");
 
-  //Get student info
+  //Get student info to add a new student
   let first_name = prompt("Please enter student first name: ");
   let last_name = prompt("Please enter student last name: ");
   let email = prompt("Please enter student email: ");
@@ -86,6 +86,7 @@ async function main() {
 
   console.log("\n\n===Updating a student");
 
+  //Get info to update student info
   let studentId = prompt("Please enter student ID: ");
   let newEmail = prompt("Please enter new email: ");
 
@@ -93,11 +94,12 @@ async function main() {
 
   console.log("\n\n===Removing a student===");
 
+  //Get studentId to delete a student
   studentId = prompt("Please enter student ID: ");
 
   await deleteStudent(studentId);
 
-  //close the connection to save resources.
+  //close the connection
   client.end();
 }
 
