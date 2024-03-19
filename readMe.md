@@ -1,6 +1,6 @@
 # **Installation Guide**
 
-- Clone the repository
+- Clone this repository: `https://github.com/LaxCU/comp3005.git`
 
 ### **[DataBase]**
 
