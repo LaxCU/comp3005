@@ -17,7 +17,3 @@
 ## **Video Link**
 
 - Link: https://youtu.be/woqLRIgRKzY
-
-## Student
-
-- Laxman Bashyal (101195443)
