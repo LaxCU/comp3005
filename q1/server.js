@@ -28,6 +28,8 @@ async function getAllStudents() {
   }
 }
 
+//testing
+
 //Function to add a new student to the database
 async function addStudent(first_name, last_name, email, enrollment_date) {
   try {
